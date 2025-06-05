@@ -1,10 +1,10 @@
 <?php
 
 // DB vars
-$DBHost = "localhost";
-$DBUser = "phpmyadmin";
-$DBPassword = "***sql123";
-$DBName = "phone_book";
+$DBHost     = "";
+$DBUser     = "";
+$DBPassword = "";
+$DBName     = "";
 
 $DBLink = mysqli_connect($DBHost, $DBUser, $DBPassword, $DBName);
 
@@ -18,7 +18,7 @@ WHERE `phone` = '$phone';";
 
 $Result = mysqli_query($DBLink, $Query);
 
-if ($Result->num_rows == 0) {
+if ($Result->num_rows === 0) {
     echo "Ничего не найдено.";
 }
 
