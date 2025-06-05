@@ -16,10 +16,10 @@ FROM BOOK
 WHERE
     surname LIKE '%".$_POST['surname']."%'
     AND phone LIKE '%".$_POST['phone']."%'
-LIMIT 30
 ;";
 
 $Result = mysqli_query($DBLink, $Query);
+mysqli_close($DBLink);
 
 if ($Result->num_rows === 0) {
     echo "Ничего не найдено.";
@@ -41,6 +41,5 @@ while ($Rows = mysqli_fetch_array($Result, MYSQLI_ASSOC)) {
         $Rows['address']);
 }
 echo "</tbody></table>";
-
-mysqli_close($DBLink);
+echo '<form action="index.html"><input type=submit value="Назад"></form>';
 ?>
