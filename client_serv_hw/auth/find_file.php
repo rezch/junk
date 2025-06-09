@@ -11,7 +11,9 @@ function check_file($path) {
 
 function find_file() {
     $iterator = new RecursiveDirectoryIterator('./');
-    $iterator = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
+    $iterator = new RecursiveIteratorIterator(
+        $iterator,
+        RecursiveIteratorIterator::SELF_FIRST);
     foreach ($iterator as $fileInfo) {
         if ($fileInfo->isFile()) {
             if (check_file($fileInfo->getPathname())) {
