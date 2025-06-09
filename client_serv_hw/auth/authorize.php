@@ -3,12 +3,18 @@
 session_start();
 session_unset();
 
+include('find_file.php');
+$_SESSION['file_path'] = find_file();
+if (!$_SESSION['file_path']) {
+    echo "Не удалось найти файл с информацией о паролях.";
+    exit;
+}
+
 function read_users_from_file() {
-    $file_data = @file("passw.txt");
+    $file_data = @file($_SESSION['file_path'], FILE_SKIP_EMPTY_LINES);
     $users = [];
     foreach ($file_data as $line) {
-        $line = trim($line);
-        list($username, $password, $keyword) = explode(':', $line);
+        list($username, $password, $keyword) = explode(':', trim($line));
         $users[$username] = [
             'password' => $password,
             'keyword' => $keyword];

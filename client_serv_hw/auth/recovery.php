@@ -15,7 +15,7 @@ function internal_error() {
 
 
 function update_file() {
-    $file = @fopen("passw.txt", "w");
+    $file = @fopen($_SESSION['file_path'], "w");
     if (!$file) {
         internal_error();
     }
