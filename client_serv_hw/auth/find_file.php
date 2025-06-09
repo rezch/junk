@@ -10,14 +10,14 @@ function check_file($path) {
 }
 
 function find_file() {
-    $iterator = new RecursiveDirectoryIterator('./');
-    $iterator = new RecursiveIteratorIterator(
-        $iterator,
+    $dir_iter = new RecursiveDirectoryIterator('./');
+    $dir_iter = new RecursiveIteratorIterator(
+        $dir_iter,
         RecursiveIteratorIterator::SELF_FIRST);
-    foreach ($iterator as $fileInfo) {
-        if ($fileInfo->isFile()) {
-            if (check_file($fileInfo->getPathname())) {
-                return $fileInfo->getPathname();
+    foreach ($dir_iter as $entity) {
+        if ($entity->isFile()) {
+            if (check_file($entity->getPathname())) {
+                return $entity->getPathname();
             }
         }
     }
