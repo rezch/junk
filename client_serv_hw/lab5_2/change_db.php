@@ -73,9 +73,13 @@ else {
     ;";
 }
 
-$Result = mysqli_query($DBLink, $Query);
+if (mysqli_query($DBLink, $Query)) {
+    echo "Успешно";
+}
+else {
+    echo "Ошибка во время операции. Попробуйте снова.";
+}
 mysqli_close($DBLink);
 
-echo "Успешно";
 echo '<form action="edit.php"><input type=submit value="Назад"></form>';
 ?>
