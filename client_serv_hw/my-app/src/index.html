@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <script src="script.js"></script>
+  <body>
+    <form name="userform" onSubmit="JavaScript:request(event)">
+      <label>
+          username:
+          <input type="text" name="username" id="username" required autofocus>
+      </label>
+      <label>
+          password:
+          <input type="password" name="passwd" id="passwd" required autofocus>
+      </label>
+      <br>
+      <label>
+          Вывести данные с:
+          <input type="date" id="dateid" name="date">
+          <input type="time" id="timeid" name="time">
+          <script>
+              function getDateTime() {
+                  let date = new Date();
+                  date.setHours(date.getHours() + 3);
+                  let datetime = date.toISOString().split('T');
+                  return [
+                  /*date=*/ datetime[0],
+                  /*time=*/ datetime[1].substring(0, 5)
+                  ];
+              }
+              const datetime = getDateTime();
+              document.getElementById('dateid').value = datetime[0];
+              document.getElementById('timeid').value = datetime[1];
+          </script>
+      </label>
+      <button type="submit">Найти</button>
+    </form>
+    <div value="JavaScript:getDate()"> </div>
+    <div id="results"> </div>
+  </body>
+</html>
