@@ -7,13 +7,11 @@
 def square(x):
     SQRT2 = 1.41421356
 
-    lambd = [
-        lambda x: x * 4,
-        lambda x: x * x,
-        lambda x: x * SQRT2,
-    ]
-
-    return tuple(map(lambda l: l(x), lambd))
+    return tuple([
+        x * 4,
+        x * x,
+        x * SQRT2,
+    ])
 
 
 print(square(2.5))
