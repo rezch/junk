@@ -1,0 +1,7 @@
+/home/r3zch/junk/dotnet/lab3/bin/Release/net9.0/publish/lab3
+/home/r3zch/junk/dotnet/lab3/bin/Release/net9.0/publish/appsettings.Development.json
+/home/r3zch/junk/dotnet/lab3/bin/Release/net9.0/publish/appsettings.json
+/home/r3zch/junk/dotnet/lab3/bin/Release/net9.0/publish/lab3.dll
+/home/r3zch/junk/dotnet/lab3/bin/Release/net9.0/publish/lab3.deps.json
+/home/r3zch/junk/dotnet/lab3/bin/Release/net9.0/publish/lab3.runtimeconfig.json
+/home/r3zch/junk/dotnet/lab3/bin/Release/net9.0/publish/lab3.pdb
