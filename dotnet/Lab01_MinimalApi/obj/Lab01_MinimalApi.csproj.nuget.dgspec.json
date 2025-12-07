@@ -1,26 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "/home/r3zch/junk/dotnet/Lab01_MinimalApi/Lab01_MinimalApi.csproj": {}
+    "/home/rezch/junk/dotnet/Lab01_MinimalApi/Lab01_MinimalApi.csproj": {}
   },
   "projects": {
-    "/home/r3zch/junk/dotnet/Lab01_MinimalApi/Lab01_MinimalApi.csproj": {
+    "/home/rezch/junk/dotnet/Lab01_MinimalApi/Lab01_MinimalApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/r3zch/junk/dotnet/Lab01_MinimalApi/Lab01_MinimalApi.csproj",
+        "projectUniqueName": "/home/rezch/junk/dotnet/Lab01_MinimalApi/Lab01_MinimalApi.csproj",
         "projectName": "Lab01_MinimalApi",
-        "projectPath": "/home/r3zch/junk/dotnet/Lab01_MinimalApi/Lab01_MinimalApi.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/home/r3zch/junk/dotnet/Lab01_MinimalApi/obj/",
+        "projectPath": "/home/rezch/junk/dotnet/Lab01_MinimalApi/Lab01_MinimalApi.csproj",
+        "packagesPath": "/home/rezch/.nuget/packages/",
+        "outputPath": "/home/rezch/junk/dotnet/Lab01_MinimalApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/home/rezch/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -65,6 +64,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[9.0.11, 9.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -73,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/9.0.112/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.112/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

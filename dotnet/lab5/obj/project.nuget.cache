@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "hIfeVeQQKME=",
+  "success": true,
+  "projectFilePath": "/home/rezch/junk/dotnet/lab5/lab5.csproj",
+  "expectedPackageFiles": [
+    "/home/rezch/.nuget/packages/microsoft.aspnetcore.openapi/9.0.11/microsoft.aspnetcore.openapi.9.0.11.nupkg.sha512",
+    "/home/rezch/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512",
+    "/home/rezch/.nuget/packages/sqlitepclraw.lib.e_sqlite3.linux/1.1.14/sqlitepclraw.lib.e_sqlite3.linux.1.1.14.nupkg.sha512",
+    "/home/rezch/.nuget/packages/swashbuckle.aspnetcore.swaggerui/9.0.4/swashbuckle.aspnetcore.swaggerui.9.0.4.nupkg.sha512",
+    "/home/rezch/.nuget/packages/system.data.sqlite/2.0.2/system.data.sqlite.2.0.2.nupkg.sha512",
+    "/home/rezch/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.11/microsoft.aspnetcore.app.ref.9.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}
