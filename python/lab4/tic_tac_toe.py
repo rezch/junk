@@ -1,12 +1,15 @@
 EMPTY = 0
 CROSS = 1
 ZERO = 2
+WINNER = 3
+
 
 def getField(n):
     return [
         [EMPTY for _ in range(n)]
         for _ in range(n)
     ]
+
 
 def drawField(field):
     def cellToStr(cell):
@@ -16,72 +19,108 @@ def drawField(field):
             return 'X'
         if cell == ZERO:
             return 'O'
+        if cell == WINNER:
+            return '+'
 
     for line in field:
         print(''.join([cellToStr(x) for x in line]))
 
 
-def checkField3(field):
-    # rows
-    for line in field:
-        if line[0] != EMPTY and len(set(line)):
-            return line[0]
-
-    # diag
-    if field[0][0] != EMPTY and len(set([field[i][i] for i in range(3)])):
-        return field[0][0]
-    if field[2][0] != EMPTY and len(set([field[3 - i - 1][i] for i in range(3)])):
-        return field[2][0]
-
-    # cols
-    for j in range(3):
-        if field[0][j] != EMPTY and len(set([field[i][j] for i in range(3)])):
-            return field[0][j]
-
-    return EMPTY
-
-def checkField10(field):
-    def check_up(i, j):
-        nonlocal field
-        if i < 4: return False
-        return field[i][j] == field[i - 1][j] \
-            and field[i][j] == field[i - 2][j] \
-            and field[i][j] == field[i - 3][j] \
-            and field[i][j] == field[i - 4][j]
-
-    def check_left(i, j):
-        nonlocal field
-        if j < 4: return False
-        return field[i][j] == field[i][j - 1] \
-            and field[i][j] == field[i][j - 2] \
-            and field[i][j] == field[i][j - 3] \
-            and field[i][j] == field[i][j - 4]
-
-    def check_diag(i, j):
-        if i < 4 or j < 4: return False
-        return field[i][j] == field[i - 1][j - 1] \
-            and field[i][j] == field[i - 2][j - 2] \
-            and field[i][j] == field[i - 3][j - 3] \
-            and field[i][j] == field[i - 4][j - 4]
-
-    def check(i, j):
-        return check_up(i, j) or check_left(i, j) or check_diag(i, j)
-
-    for i, line in enumerate(field):
-        for j, x in enumerate(line):
-            if x != EMPTY and check(i, j):
-                return x
-
-    return EMPTY
-
 def checkField(field):
-    if len(field) == 3:
-        return checkField3(field)
-    return checkField10(field)
+    n = len(field)
+    to_win = 3 if n == 3 else 5
+
+    dirs = [
+        (0, 1),
+        (1, 0),
+        (1, 1),
+        (1, -1),
+    ]
+
+    for i in range(n):
+        for j in range(n):
+            player = field[i][j]
+            if player == EMPTY or player == WINNER:
+                continue
+
+            for dx, dy in dirs:
+                win_cells = []
+                for k in range(to_win):
+                    x = i + dx * k
+                    y = j + dy * k
+                    if 0 <= x < n and 0 <= y < n and field[x][y] == player:
+                        win_cells.append((x, y))
+                    else:
+                        break
+
+                if len(win_cells) == to_win:
+                    for x, y in win_cells:
+                        field[x][y] = WINNER
+                    return True
+
+    return False
 
 
-field = getField(4)
-field[2][2] = CROSS
-field[1][3] = ZERO
-drawField(field)
+def nextTurn(turn):
+    return 1 + turn % 2
 
+
+def getInput(size):
+    try:
+        x, y = list(map(int, input().split()))
+    except:
+        return None, None
+
+    if 0 > x or x >= size \
+            or 0 > y or y >= size:
+        return None, None
+
+    return x, y
+
+
+def main():
+    turn = CROSS
+
+    print('Введите размер поля, 3 или 10')
+    size = input()
+    try:
+        size = int(size)
+    except ValueError:
+        print('Не верно введен размер поля')
+        return
+
+    if size != 3 and size != 10:
+        print('Не верно введен размер поля')
+        return
+
+    field = getField(size)
+
+    print(f'Координаты вводятся двумя числами от 0 до {size - 1}')
+
+    while True:
+        drawField(field)
+
+        turnStr = 'X' if turn == CROSS else 'O'
+        print(f'Сейчас ход {turnStr}')
+        print('Введите координаты клетки')
+        x, y = getInput(size)
+        if x is None or y is None:
+            print('Не верные координаты')
+            continue
+
+        if field[x][y] != EMPTY:
+            print('Клетка уже занята')
+            continue
+
+        field[x][y] = turn
+
+        if checkField(field):
+            print(f'Выиграли {turnStr}')
+            drawField(field)
+            break
+
+        turn = nextTurn(turn)
+
+
+if __name__ == "__main__":
+    main()
