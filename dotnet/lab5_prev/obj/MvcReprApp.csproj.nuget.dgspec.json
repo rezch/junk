@@ -1,25 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "/home/rezch/junk/dotnet/lab5_prev/MvcReprApp.csproj": {}
+    "/home/r3zch/junk/dotnet/lab5_prev/MvcReprApp.csproj": {}
   },
   "projects": {
-    "/home/rezch/junk/dotnet/lab5_prev/MvcReprApp.csproj": {
+    "/home/r3zch/junk/dotnet/lab5_prev/MvcReprApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/rezch/junk/dotnet/lab5_prev/MvcReprApp.csproj",
+        "projectUniqueName": "/home/r3zch/junk/dotnet/lab5_prev/MvcReprApp.csproj",
         "projectName": "MvcReprApp",
-        "projectPath": "/home/rezch/junk/dotnet/lab5_prev/MvcReprApp.csproj",
-        "packagesPath": "/home/rezch/.nuget/packages/",
-        "outputPath": "/home/rezch/junk/dotnet/lab5_prev/obj/",
+        "projectPath": "/home/r3zch/junk/dotnet/lab5_prev/MvcReprApp.csproj",
+        "packagesPath": "/home/r3zch/.nuget/packages/",
+        "outputPath": "/home/r3zch/junk/dotnet/lab5_prev/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/rezch/.nuget/NuGet/NuGet.Config"
+          "/home/r3zch/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -72,12 +73,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[9.0.11, 9.0.11]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -86,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.112/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/9.0.112/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
