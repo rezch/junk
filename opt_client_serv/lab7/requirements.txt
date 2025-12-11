@@ -1,0 +1,4 @@
+bcrypt==5.0.0
+grpcio==1.76.0
+grpcio-tools==1.76.0
+python-jose==3.5.0

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package social;
+
+service AuthService {
+    rpc Register (RegisterRequest) returns (RegisterResponse);
+    rpc Login (LoginRequest) returns (LoginResponse);
+    rpc GetUserProfile (ProfileRequest) returns (ProfileResponse);
+}
+
+service WallService {
+    rpc CreatePost (CreatePostRequest) returns (CreatePostResponse);
+    rpc GetPosts (GetPostsRequest) returns (GetPostsResponse);
+}
+
+// Сообщения для аутентификации
+message RegisterRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message RegisterResponse {
+    string user_id = 1;
+    string username = 2;
+}
+
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    string token = 1;
+}
+
+// Сообщения для работы с профилями
+message ProfileRequest {
+    string token = 1;
+}
+
+message ProfileResponse {
+    string user_id = 1;
+    string username = 2;
+}
+
+// Сообщения для работы с постами
+message Post {
+    string id = 1;
+    string user_id = 2;
+    string text = 3;
+}
+
+message CreatePostRequest {
+    string text = 1;
+}
+
+message CreatePostResponse {
+    Post post = 1;
+}
+
+message GetPostsRequest {}
+
+message GetPostsResponse {
+    repeated Post posts = 1;
+}
