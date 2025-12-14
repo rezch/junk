@@ -1,0 +1,18 @@
+@page
+@model BulletinBoard.Pages.ActionLogModel
+
+<h2>Журнал действий</h2>
+<a href="/">На главную</a>
+
+@foreach(var log in Model.Logs)
+{
+    <div>
+        <b>@log.Time.ToString("g")</b> — @log.Description
+    </div>
+    <hr/>
+}
+
+@if (!Model.Logs.Any())
+{
+    <p>Журнал пуст.</p>
+}

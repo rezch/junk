@@ -1,0 +1,172 @@
+
+-- Database/DatabaseHelper.cs
+using System.Data.SQLite;
+using BulletinBoard.Login;
+using BulletinBoard.Models;
+
+namespace BulletinBoard.Database
+{
+    public class DatabaseHelper(ServiceContext context, IHttpContextAccessor httpContextAccessor)
+    {
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+        private readonly ServiceContext _context = context;
+
+        private bool ActionsAllowed(Note note)
+        {
+            var role     = _httpContextAccessor.HttpContext?.Session.GetString("role");
+            var username = _httpContextAccessor.HttpContext?.Session.GetString("username");
+            return role == LoginRoles.Admin
+                || (role == "user" && note.Owner == username);
+        }
+
+        public List<Note> GetNotes(string search)
+        {
+            var query = _context.Notes.AsQueryable();
+
+            if (search != null)
+            {
+                query = query.Where(
+                    p => p.Name.Contains(search, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            return [.. query.OrderByDescending(p => p.CreationDate)];
+        }
+
+        public Note GetNoteById(int id)
+        {
+            var query = _context.Notes.AsQueryable();
+
+            query = query.Where(
+                p => p.Id == id);
+
+            return (Note)query;
+        }
+
+        public bool AddNote(Note note)
+        {
+            try
+            {
+                note.CreationDate = DateTime.Now;
+                _context.Notes.Add(note);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public bool UpdateNote(Note note)
+        {
+            var noteFromDB = GetNoteById(note.Id);
+            if (noteFromDB == null || !ActionsAllowed(noteFromDB))
+            {
+                return false;
+            }
+
+            noteFromDB.Price = note.Price;
+            noteFromDB.Name = note.Name;
+            noteFromDB.Description = note.Description;
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteNote(int id)
+        {
+            var noteFromDB = GetNoteById(id);
+            if (noteFromDB == null || !ActionsAllowed(noteFromDB))
+            {
+                return false;
+            }
+
+            _context.Notes.Remove(noteFromDB);
+            _context.SaveChanges();
+            return true;
+        }
+    }
+}
+-- Database/NotesContext.cs
+using BulletinBoard.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace BulletinBoard.Database
+{
+    public class ServiceContext : DbContext
+    {
+        private readonly string _DbSource = "Data Source=notes.db";
+
+        public DbSet<Note> Users { get; set; }
+        public DbSet<Note> Notes { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(_DbSource);
+        }
+    }
+}
+-- Login/login.cs
+namespace BulletinBoard.Login
+{
+    public static class LoginRoles
+    {
+        public const string User  = "user";
+        public const string Admin = "admin";
+
+        // С правами (проверка внутри метода)
+        public const string UserOrAdmin = User + "," + Admin;
+    }
+
+    public record LoginModel(string Username, string Password);
+}
+-- Models/Note.cs
+using System.ComponentModel.DataAnnotations;
+
+namespace BulletinBoard.Models
+{
+    public class Note
+    {
+        public int Id { get; set; }
+        public string Owner { get; set; }
+        public DateTime CreationDate { get; set; }
+
+        public decimal? Price { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+    }
+
+    public class NoteRequest
+    {
+        public decimal? Price { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+    }
+
+    public class NotePatchRequest
+    {
+        public decimal? Price { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+    }
+
+    public class NoteResponse
+    {
+        public int StatusCode { get; set; }
+        public NoteRequest? Note { get; set; }
+    }
+}
+-- Models/User.cs
+using System.ComponentModel.DataAnnotations;
+using BulletinBoard.Login;
+
+namespace BulletinBoard.Models
+{
+    public class User
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Role { get; set; } = LoginRoles.User;
+        public string PasswordHash { get; set; }
+    }
+}

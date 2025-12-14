@@ -1,0 +1,30 @@
+@page
+@model NotesModel
+
+<h2>Все объявления</h2>
+<a href="/">На главную</a>
+<a href="/AddNote">[+]Новое объявление</a>
+<form method="get">
+    <input type="text" name="search" value="@Model.Search" placeholder="Поиск..." />
+    <button type="submit">Поиск</button>
+</form>
+
+@foreach(var note in Model.Notes)
+{
+    <div>
+        <b>@note.Name</b>
+        (
+            @(note.Price.HasValue && note.Price.Value > 0 
+                ? note.Price.Value.ToString("0.##") + "₽" 
+                : "Бесплатно")
+        )
+        <br />
+        @note.Description
+        <br />
+        <i>Добавлено: @note.CreationDate.ToString("g") пользователем @note.Owner</i>
+    </div>
+    <hr/>
+}
+
+@if (!Model.Notes.Any())
+{ <p>Нет объявлений.</p> }

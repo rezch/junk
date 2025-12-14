@@ -1,0 +1,27 @@
+@page
+@model BulletinBoard.Pages.RegisterModel
+
+<h2>Регистрация</h2>
+<a href="/Index">← На главную</a>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div style="color:red">@Model.ErrorMessage</div>
+}
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div style="color:green">@Model.SuccessMessage</div>
+}
+
+<form method="post">
+    <p>
+        <label>Логин: <input asp-for="Input.UserName" required /></label>
+    </p>
+    <p>
+        <label>Пароль: <input type="password" asp-for="Input.Password" required /></label>
+    </p>
+    <p>
+        <label>Повторите пароль: <input type="password" asp-for="Input.ConfirmPassword" required /></label>
+    </p>
+    <button type="submit">Зарегистрироваться</button>
+</form>

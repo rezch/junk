@@ -1,0 +1,35 @@
+@page
+@model BulletinBoard.Pages.AddNoteModel
+
+<h2>Добавить объявление</h2>
+<a href="/Notes">← К объявлениям</a>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div style="color:red">@Model.ErrorMessage</div>
+}
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div style="color:green">@Model.SuccessMessage</div>
+}
+
+@if (Model.Username == null)
+{
+    <div style="color:orange">Вы должны войти, чтобы добавлять объявления.</div>
+}
+else
+{
+    <form method="post">
+        <p>
+            <label>Название: <input asp-for="Input.Name" required /></label>
+        </p>
+        <p>
+            <label>Цена: <input asp-for="Input.Price" type="number" min="0" step="0.01" /></label>
+        </p>
+        <p>
+            <label>Описание: <br />
+            <textarea asp-for="Input.Description" rows="4" cols="50"></textarea></label>
+        </p>
+        <button type="submit">Добавить</button>
+    </form>
+}

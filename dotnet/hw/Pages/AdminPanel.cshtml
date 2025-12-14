@@ -1,0 +1,28 @@
+@page
+@model AdminPanelModel
+
+<h2>Панель администратора</h2>
+<a href="/">На главную</a>
+@if (!Model.Notes.Any())
+{
+    <p>Нет объявлений.</p>
+}
+else
+{
+@foreach(var note in Model.Notes)
+{
+    <div>
+        <b>@note.Name</b> (@note.Price?.ToString("0.##") ?? "Бесплатно")<br/>
+        @note.Description<br/>
+        <i>Добавлено: @note.CreationDate.ToString("g"), пользователь: @note.Owner</i>
+        <form method="post" asp-page-handler="Delete" asp-route-id="@note.Id" onsubmit="return confirm('Удалить?')">
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+    <hr/>
+}
+}
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div style="color:green;">@Model.Message</div>
+}

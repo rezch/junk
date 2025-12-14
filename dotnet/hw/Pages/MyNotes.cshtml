@@ -1,0 +1,41 @@
+@page
+@model MyNotesModel
+
+<h2>Мои объявления</h2>
+<a href="/">На главную</a>
+<a href="/AddNote">[+]Новое объявление</a>
+
+@if (!Model.Notes.Any())
+{
+    <p>У вас нет объявлений.</p>
+}
+else
+{
+@foreach(var note in Model.Notes)
+{
+    <div>
+        <b>@note.Name</b>
+        (
+            @(note.Price.HasValue && note.Price.Value > 0 
+                ? note.Price.Value.ToString("0.##") + "₽"
+                : "Бесплатно")
+        )
+        <br>
+        @note.Description
+        <br/>
+        <i>Добавлено: @note.CreationDate.ToString("g")</i>
+        <br/>
+        <a href="/EditNote?id=@note.Id">Изменить</a>&nbsp;
+        <form method="post" asp-page-handler="Delete" asp-route-id="@note.Id" style="display:inline;" 
+              onsubmit="return confirm('Удалить это объявление?');">
+            <button type="submit" style="color:red;">Удалить</button>
+        </form>
+    </div>
+    <hr/>
+}
+}
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div style="color:green;">@Model.Message</div>
+}

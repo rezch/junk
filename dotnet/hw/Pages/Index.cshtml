@@ -1,0 +1,39 @@
+﻿@page
+@model BulletinBoard.Pages.IndexModel
+@{
+    var username = Model.Username;
+    var role = Model.Role;
+}
+
+<h2>Доска объявлений</h2>
+
+@if (!string.IsNullOrEmpty(username))
+{
+    <p>Вы вошли как: <b>@username</b> (@role)</p>
+    <ul>
+        <li><a href="/Notes">Объявления</a></li>
+        <li><a href="/MyNotes">Мои объявления</a></li>
+        @if (role == "admin")
+        {
+            <li><a href="/AdminPanel">Панель</a></li>
+            <li><a href="/ActionLog">Журнал</a></li>
+        }
+    </ul>
+    <form method="post" asp-page-handler="Logout" style="display:inline">
+        <button type="submit">Выйти</button>
+    </form>
+    <a href="/ChangePassword" style="margin-left:15px">Изменить пароль</a>
+}
+else
+{
+    <form method="post">
+        <label>Логин:<input type="text" name="username" /></label><br />
+        <label>Пароль:<input type="password" name="password" /></label><br />
+        <button type="submit">Войти</button>
+        <a href="/ForgotPassword" style="margin-left:10px;">Забыл пароль</a>
+    </form>
+    @if (!string.IsNullOrEmpty(Model.LoginError))
+    {
+        <div style="color:red">@Model.LoginError</div>
+    }
+}
