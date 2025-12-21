@@ -1,0 +1,15 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <a href="/Hello">Hello</a>
+    <ul>
+        <li><a asp-page="/CreateStudent">Создать студента</a></li>
+        <li><a asp-page="/StudentsList">Получить список студентов</a></li>
+        <li><a asp-page="/DeleteStudent">Удалить студента по Id</a></li>
+    </ul>
+</div>

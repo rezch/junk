@@ -1,0 +1,95 @@
+@page "/products"
+@using lab15.Models
+@inject HttpClient Http
+@inject NavigationManager Nav
+
+<h3>Продукты</h3>
+
+@if (products == null)
+{
+    <p>Загрузка...</p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Действия</th>
+        </tr>
+        @foreach (var p in products)
+        {
+            <tr>
+                <td>@p.Product.Id</td>
+                <td>@p.Product.Name</td>
+                <td>@p.Product.Price</td>
+                <td>
+                    <button @onclick="() => Delete(p.Product.Id)">Удалить</button>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <h4>Добавить продукт</h4>
+    <input placeholder="Название" @bind="newProduct.Name" />
+    <input placeholder="Цена" type="number" @bind="newProduct.Price" />
+    <button @onclick="Create">Добавить</button>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div style="color:red">@errorMessage</div>
+    }
+}
+
+@code {
+    private List<CreateProductResponse>? products;
+    private CreateProductRequest newProduct = new();
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Http.BaseAddress = new Uri(Nav.BaseUri);
+        await LoadProducts();
+    }
+
+    private async Task LoadProducts()
+    {
+        try
+        {
+            products = await Http.GetFromJsonAsync<List<CreateProductResponse>>("api/CreateProduct");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Ошибка загрузки продуктов: " + ex.Message;
+        }
+    }
+
+    private async Task Create()
+    {
+        errorMessage = null;
+        var response = await Http.PostAsJsonAsync("api/CreateProduct", newProduct);
+        if (response.IsSuccessStatusCode)
+        {
+            newProduct = new();
+            await LoadProducts();
+        }
+        else
+        {
+            errorMessage = "Ошибка при добавлении продукта";
+        }
+    }
+
+    private async Task Delete(int id)
+    {
+        var response = await Http.DeleteAsync($"api/CreateProduct/id?id={id}");
+        if (response.IsSuccessStatusCode)
+        {
+            await LoadProducts();
+        }
+        else
+        {
+            errorMessage = "Ошибка при удалении";
+        }
+    }
+}

@@ -1,0 +1,48 @@
+@page "/daysuntil"
+@inject NavigationManager Nav
+@inject HttpClient Http
+
+<h3>Дней до даты</h3>
+<input type="date" @bind="targetDate" />
+<button @onclick="CheckDays">Посчитать</button>
+@if (!string.IsNullOrEmpty(result))
+{
+    <p>@result</p>
+}
+
+@code {
+    private DateTime targetDate = DateTime.Today;
+    private string result;
+
+    protected override void OnInitialized()
+    {
+        Http.BaseAddress = new Uri(Nav.BaseUri);
+    }
+
+    private async Task CheckDays()
+    {
+        var requestUri = $"api/DayUntil?date={targetDate:yyyy-MM-dd}";
+        try
+        {
+            var response = await Http.GetAsync(requestUri);
+            if (response.IsSuccessStatusCode)
+            {
+                var obj = await response.Content.ReadFromJsonAsync<DaysLeftResponse>();
+                result = $"Осталось {obj?.daysLeft} дней";
+            }
+            else
+            {
+                result = await response.Content.ReadAsStringAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            result = "Ошибка при обращении к API: " + ex.Message;
+        }
+    }
+
+    public class DaysLeftResponse
+    {
+        public int daysLeft { get; set; }
+    }
+}

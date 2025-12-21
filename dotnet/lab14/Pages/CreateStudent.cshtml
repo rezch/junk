@@ -1,0 +1,32 @@
+@page
+@model CreateStudentModel
+@{
+    ViewData["Title"] = "Создать студента";
+}
+
+<h1>Создать студента</h1>
+
+@if (Model.Message != null)
+{
+    <div>@Model.Message</div>
+}
+
+<form method="post">
+    <div>
+        <label>Имя:</label>
+        <input asp-for="Student.Name" required />
+    </div>
+    <div>
+        <label>Возраст:</label>
+        <input asp-for="Student.Age" type="number" required />
+    </div>
+    <div>
+        <label>Email:</label>
+        <input asp-for="Student.Email" />
+    </div>
+    <button type="submit">Создать</button>
+</form>
+
+<p>
+    <a asp-page="/Index">← Назад</a>
+</p>

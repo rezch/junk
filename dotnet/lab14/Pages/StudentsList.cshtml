@@ -1,0 +1,40 @@
+@page
+@model StudentsListModel
+@{
+    ViewData["Title"] = "Список студентов";
+}
+
+<h1>Список студентов</h1>
+
+@if (Model.Students?.Any() == true)
+{
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Имя</th>
+                <th>Возраст</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td>@student.Id</td>
+                    <td>@student.Name</td>
+                    <td>@student.Age</td>
+                    <td>@student.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Студентов пока нет.</p>
+}
+
+<p>
+    <a asp-page="/Index">← Назад</a>
+</p>

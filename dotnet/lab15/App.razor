@@ -1,0 +1,12 @@
+﻿@using lab15.Shared
+
+<NavMenu />
+
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" />
+    </Found>
+    <NotFound>
+        <h1>Страница не найдена</h1>
+    </NotFound>
+</Router>

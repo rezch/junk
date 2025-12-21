@@ -1,0 +1,24 @@
+@page
+@model DeleteStudentModel
+@{
+    ViewData["Title"] = "Удалить студента";
+}
+
+<h1>Удалить студента по Id</h1>
+
+@if (Model.Message != null)
+{
+    <div>@Model.Message</div>
+}
+
+<form method="post">
+    <div>
+        <label>Id студента:</label>
+        <input asp-for="StudentId" type="number" min="1" required />
+    </div>
+    <button type="submit">Удалить</button>
+</form>
+
+<p>
+    <a asp-page="/Index">← Назад</a>
+</p>
