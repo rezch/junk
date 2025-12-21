@@ -13,7 +13,7 @@ namespace lab14.Pages
         public void OnGet()
         {
             var http = new HttpClient();
-            http.BaseAddress = new Uri($"{Request.Scheme}://{Request.Host}");
+            http.BaseAddress = new Uri("http://localhost:5053/");
 
             var response = http.GetAsync("/api/students").GetAwaiter().GetResult();
 

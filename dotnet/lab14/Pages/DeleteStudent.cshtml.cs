@@ -17,7 +17,7 @@ namespace lab14.Pages
         {
             var http = new HttpClient
             {
-                BaseAddress = new Uri($"{Request.Scheme}://{Request.Host}")
+                BaseAddress = new Uri("http://localhost:5053/")
             };
 
             var response = http.DeleteAsync($"/api/students/{StudentId}").GetAwaiter().GetResult();
