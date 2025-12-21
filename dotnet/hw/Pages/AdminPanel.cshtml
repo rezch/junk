@@ -12,7 +12,13 @@ else
 @foreach(var note in Model.Notes)
 {
     <div>
-        <b>@note.Name</b> (@note.Price?.ToString("0.##") ?? "Бесплатно")<br/>
+        <b>@note.Name</b>
+        (
+            @(note.Price.HasValue && note.Price.Value > 0
+                ? $"{note.Price.Value:0.##}₽"
+                : "Бесплатно")
+        )
+        <br/>
         @note.Description<br/>
         <i>Добавлено: @note.CreationDate.ToString("g"), пользователь: @note.Owner</i>
         <form method="post" asp-page-handler="Delete" asp-route-id="@note.Id" onsubmit="return confirm('Удалить?')">

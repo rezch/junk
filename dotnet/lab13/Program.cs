@@ -7,12 +7,42 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using MvcReprApp.Login;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var secretKey = Encoding.ASCII.GetBytes("Секретный ключ длинной не менее 16 символовСекретный ключ длинной не менее 16 символов");
+
+builder.Services.AddEndpointsApiExplorer();
+
+// Adding authorization bearer token support in Swagger UI
+builder.Services.AddSwaggerGen(option =>
+{
+    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Web API with Jwt Authentication", Version = "v1" });
+    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 builder.Services.AddAuthentication(options =>
 {
@@ -31,78 +61,20 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-
-    // Настройка для кнопки "Authorize"
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = "JWT Authorization. Enter 'Bearer' [space] and your token",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
-});
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddOpenApi();
-builder.Services.AddAuthorization();
-
-builder.Services.AddSwaggerGen(opt =>
-{
-    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1" });
-    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Please enter token",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = "bearer"
-    });
-    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
-                }
-            },
-            new string[]{}
-        }
-    });
-});
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"))
+    .AddPolicy("RequireSalesClaims", policy => policy.RequireClaim("Department", "Sales"));
 
 var app = builder.Build();
-app.UseAuthentication();
-app.UseAuthorization();
 app.MapControllers();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
 }
 else
 {
@@ -110,11 +82,11 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "v1"));
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapStaticAssets();
 
@@ -125,6 +97,7 @@ string GenerateJwtToken(string username)
     var role = username == "admin"
         ? "Admin"
         : "User";
+
     var tokenDescriptor = new SecurityTokenDescriptor
     {
         Subject = new ClaimsIdentity(new Claim[]
@@ -137,6 +110,7 @@ string GenerateJwtToken(string username)
             new SymmetricSecurityKey(key),
             SecurityAlgorithms.HmacSha256Signature)
     };
+
     var token = tokenHandler.CreateToken(tokenDescriptor);
     return tokenHandler.WriteToken(token);
 }
@@ -147,10 +121,12 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 // Ограничение по роли
-app.MapGet("/admin-area", () => "Admin Content").RequireAuthorization("RequireAdminRole");
+app.MapGet("/admin-area", () => "Admin Content")
+.RequireAuthorization("RequireAdminRole");
 
 // Ограничение по политике
-app.MapGet("/sales-reports", () => "Sales Reports").RequireAuthorization("RequireSalesClaims");
+app.MapGet("/sales-reports", () => "Sales Reports")
+.RequireAuthorization("RequireSalesClaims");
 
 bool IsValidUser(string username, string password)
 {
@@ -174,7 +150,8 @@ app.MapGet("/profile", (ClaimsPrincipal user) =>
     var userName = user.Identity.Name;
 
     return Results.Ok($"Пользователь: m2500237@edu.misis.ru");
-}).RequireAuthorization();
+})
+.RequireAuthorization();
 
 app.MapPost("/logout", async (HttpContext context) =>
 {

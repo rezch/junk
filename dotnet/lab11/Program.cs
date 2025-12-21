@@ -21,11 +21,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddOpenApi();
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-    options.AddPolicy("RequireSalesClaims", policy => policy.RequireClaim("Department", "Sales"));
-});
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"))
+    .AddPolicy("RequireSalesClaims", policy => policy.RequireClaim("Department", "Sales"));
 
 var app = builder.Build();
 app.UseAuthentication();
