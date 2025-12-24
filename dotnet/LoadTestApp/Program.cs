@@ -1,4 +1,6 @@
-﻿using System;
+﻿// lab6_prev
+
+using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -50,7 +52,6 @@ class Program
 
     private static async Task RunUserScenario(HttpClient client, string url, int requestsCount, int selfId)
     {
-        // lab6_prev
         for (int i = 0; i < requestsCount; i++)
         {
             var sw = Stopwatch.StartNew();
