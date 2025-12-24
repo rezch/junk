@@ -6,9 +6,9 @@ namespace lab5.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StudentsController : ControllerBase
+    public class StudentsController(DatabaseHelper db) : ControllerBase
     {
-        private readonly DatabaseHelper _dbHelper = new();
+        private readonly DatabaseHelper _dbHelper = db;
 
         [HttpGet]
         public IEnumerable<Student> Get()

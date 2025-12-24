@@ -13,7 +13,13 @@ namespace lab5.Controllers
         [HttpGet]
         public IEnumerable<Student> Get()
         {
-            return _dbHelper.GetStudents();
+            try {
+                return _dbHelper.GetStudents();
+            }
+            catch (Exception ex) {
+                Console.WriteLine(ex);
+            }
+            return null;
         }
 
         [HttpPost]
