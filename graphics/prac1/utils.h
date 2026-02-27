@@ -12,7 +12,9 @@ void write(Args&&... args)
 }
 
 inline void write()
-{ }
+{
+    std::cout << std::endl;
+}
 
 template <class Container>
 void print(Container&& c)

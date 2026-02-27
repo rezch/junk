@@ -47,17 +47,17 @@ public:
     Matrix operator * (const Matrix& rhs) const
     {
         auto result = Matrix{};
-        for (int i = 0; i < SIZE; ++i)
-            for (int j = 0; j < SIZE; ++j)
-                for (int k = 0; k < SIZE; ++k)
+        for (size_t i = 0; i < SIZE; ++i)
+            for (size_t j = 0; j < SIZE; ++j)
+                for (size_t k = 0; k < SIZE; ++k)
                     result[i][j] += data_[i][k] * rhs.data_[k][j];
         return result;
     }
 
     Matrix& T()
     {
-        for (int i = 0; i < SIZE; ++i)
-            for (int j = i; j < SIZE; ++j)
+        for (size_t i = 0; i < SIZE; ++i)
+            for (size_t j = i + 1; j < SIZE; ++j)
                 std::swap(data_[i][j], data_[j][i]);
         return *this;
     }

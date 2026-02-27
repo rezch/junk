@@ -1,5 +1,7 @@
 #pragma once
 
+#include "utils.h"
+#include <calc.h>
 #include <vector.h>
 #include <matrix.h>
 
@@ -66,14 +68,10 @@ public:
         moveToPoint(c.neg());
     }
 
-
     Vector center() const
     {
-        return Vector({
-            (verts_[0][0] + verts_[1][0] + verts_[2][0]) / 3,
-            (verts_[0][1] + verts_[1][1] + verts_[2][1]) / 3,
-            (verts_[0][2] + verts_[1][2] + verts_[2][2]) / 3,
-        });
+        auto cV = Vector({ 1.f / 3, 1.f / 3, 1.f / 3, 1 });
+        return mult(cV, verts_);
     }
 
     void moveToPoint(const Vector& p)
