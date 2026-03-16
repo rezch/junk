@@ -8,3 +8,6 @@ obj/
 venv/
 __pycache__/
 Students_*
+*.csv
+*.xlsx
+*.zip
