@@ -1,0 +1,30 @@
+[
+  {
+    "Id": "fb28af3d-baa1-42e4-bbd6-298e3d711a31",
+    "Name": "\u0418\u0432\u0430\u043D \u041F\u0435\u0442\u0440\u043E\u0432",
+    "Email": "ivan@university.ru",
+    "Role": 1,
+    "IsActive": true
+  },
+  {
+    "Id": "909aaa09-1ac0-4318-bd39-5be25c292710",
+    "Name": "\u0410\u043B\u0435\u043A\u0441\u0435\u0439 \u0421\u043C\u0438\u0440\u043D\u043E\u0432",
+    "Email": "alex@student.ru",
+    "Role": 0,
+    "IsActive": true
+  },
+  {
+    "Id": "2ffb04d3-9311-437c-93f4-7ebd759beed2",
+    "Name": "\u0418\u0432\u0430\u043D \u041F\u0435\u0442\u0440\u043E\u0432",
+    "Email": "ivan@university.ru",
+    "Role": 1,
+    "IsActive": true
+  },
+  {
+    "Id": "8b586e85-c7b4-4615-b062-1f57408c5d62",
+    "Name": "\u0410\u043B\u0435\u043A\u0441\u0435\u0439 \u0421\u043C\u0438\u0440\u043D\u043E\u0432",
+    "Email": "alex@student.ru",
+    "Role": 0,
+    "IsActive": true
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "Id": "f36adf39-998d-422b-bf4f-fa069ea4e5c5",
+    "Date": "2004-10-10T00:00:00",
+    "StartTime": "14:00:00",
+    "Status": 0,
+    "LateThresholdMinutes": 15,
+    "Course": {
+      "Id": "d1f33669-8843-420e-aaea-7d0281af9963",
+      "Name": "\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435",
+      "Code": "CS101"
+    },
+    "Group": {
+      "Id": "012097ea-876d-40c9-96e1-703f1c6e24e4",
+      "Name": "\u0411\u0418\u0421\u0422-23-\u041F\u041E-2",
+      "YearOfEntry": 2023,
+      "Students": [
+        {
+          "Id": "909aaa09-1ac0-4318-bd39-5be25c292710",
+          "Name": "\u0410\u043B\u0435\u043A\u0441\u0435\u0439 \u0421\u043C\u0438\u0440\u043D\u043E\u0432",
+          "Email": "alex@student.ru",
+          "Role": 0,
+          "IsActive": true
+        }
+      ]
+    },
+    "Lecturer": {
+      "Id": "fb28af3d-baa1-42e4-bbd6-298e3d711a31",
+      "Name": "\u0418\u0432\u0430\u043D \u041F\u0435\u0442\u0440\u043E\u0432",
+      "Email": "ivan@university.ru",
+      "Role": 1,
+      "IsActive": true
+    },
+    "Marks": []
+  }
+]
