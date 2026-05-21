@@ -11,3 +11,8 @@ Students_*
 *.csv
 *.xlsx
 *.zip
+*.db
+*.db-*
+*build/
+build/
+*.sqlite

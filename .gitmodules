@@ -1,0 +1,6 @@
+[submodule "mob/lab7/third_party/sqlite_orm"]
+	path = mob/lab7/third_party/sqlite_orm
+	url = https://github.com/fnc12/sqlite_orm.git
+[submodule "mob/lab7/third_party/nlohmann_json"]
+	path = mob/lab7/third_party/nlohmann_json
+	url = https://github.com/nlohmann/json.git

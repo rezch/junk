@@ -1,0 +1,16 @@
+{
+    "models": [
+        {
+            "name": "note",
+            "table_name": "notes",
+            "from_json": true,
+            "fields": [
+                {"type": "std::string", "name": "id", "primary_key": true},
+                {"type": "std::string", "name": "text"},
+                {"type": "std::string", "name": "title"},
+                {"type": "uint64_t", "name": "createdAt"},
+                {"type": "uint64_t", "name": "updatedAt"}
+            ]
+        }
+    ]
+}
