@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:id="@+id/current_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:text="Имя не установлено"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/main_nick_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Указать имя" />
+
+        <Button
+            android:id="@+id/main_game_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Играть" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
