@@ -4,3 +4,9 @@
 [submodule "mob/lab7/third_party/nlohmann_json"]
 	path = mob/lab7/third_party/nlohmann_json
 	url = https://github.com/nlohmann/json.git
+[submodule "mob/hw2/third_party/jwt-cpp"]
+	path = mob/hw2/third_party/jwt-cpp
+	url = https://github.com/Thalhammer/jwt-cpp.git
+[submodule "mob/hw2/third_party/cpp-dotenv"]
+	path = mob/hw2/third_party/cpp-dotenv
+	url = https://github.com/adeharo9/cpp-dotenv.git

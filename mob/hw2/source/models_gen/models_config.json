@@ -1,0 +1,62 @@
+{
+    "models": [
+        {
+            "name": "user",
+            "table_name": "users",
+            "from_json": true,
+            "fields": [
+                {"type": "uint64_t",    "name": "id", "primary_key": true},
+                {"type": "std::string", "name": "name"},
+                {"type": "std::string", "name": "email"},
+                {"type": "std::string", "name": "password_hash"}
+            ]
+        },
+
+        {
+            "name": "transaction",
+            "table_name": "transactions",
+            "from_json": true,
+            "fields": [
+                {"type": "uint64_t",    "name": "id", "primary_key": true},
+                {"type": "uint64_t",    "name": "user_id"},
+                {"type": "std::string", "name": "title"},
+                {"type": "std::string", "name": "date"},
+                {"type": "uint64_t",    "name": "amount"},
+                {"type": "uint64_t",    "name": "category_id"}
+            ]
+        },
+
+        {
+            "name": "category",
+            "table_name": "categories",
+            "from_json": true,
+            "fields": [
+                {"type": "uint64_t",    "name": "id", "primary_key": true},
+                {"type": "std::string", "name": "name"}
+            ]
+        },
+
+        {
+            "name": "session",
+            "table_name": "sessions",
+            "from_json": true,
+            "fields": [
+                {"type": "uint64_t",    "name": "user_id", "primary_key": true},
+                {"type": "std::string", "name": "token"}
+            ]
+        },
+
+        {
+            "name": "report",
+            "table_name": "reports",
+            "from_json": true,
+            "fields": [
+                {"type": "uint64_t",    "name": "id", "primary_key": true},
+                {"type": "uint64_t",    "name": "user_id"},
+                {"type": "std::string", "name": "period_start"},
+                {"type": "std::string", "name": "period_end"},
+                {"type": "std::string", "name": "created_at"}
+            ]
+        }
+    ]
+}
